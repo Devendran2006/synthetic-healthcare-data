@@ -29,3 +29,7 @@ jobs:
       run: |
         python --version
         pip list
+    
+    - name: Run Evaluation
+      run: |
+        python src/evaluation.py
