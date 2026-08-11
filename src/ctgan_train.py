@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sdv.metadata import SingleTableMetadata
 from sdv.single_table import CTGANSynthesizer
@@ -25,11 +26,19 @@ print("Generating Synthetic Data...")
 
 synthetic_data = synthesizer.sample(num_rows=55500)
 
+
+os.makedirs("outputs", exist_ok=True)
+
 synthetic_data.to_csv(
-    "data/synthetic_healthcare.csv",
+    "outputs/synthetic_healthcare.csv",
     index=False
 )
+import joblib
 
+joblib.dump(
+    synthesizer,
+    "models/ctgan_model.pkl"
+)
 print("Synthetic Dataset Generated Successfully!")
 print(synthetic_data.head())
 print("Shape:", synthetic_data.shape)
